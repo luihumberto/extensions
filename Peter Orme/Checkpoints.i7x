@@ -1,4 +1,4 @@
-Version 1/150130 of Checkpoints by Peter Orme begins here. 
+Version 1/170928 of Checkpoints by Peter Orme begins here. 
 
 "A method of using assertions stored in a table to verify your game works as expected."
 
@@ -91,13 +91,12 @@ Chapter: running assertions
 To trigger running all the assertions that match the topic column while playing a game, type in "checkpoint assert xxx" where xxx matches the topic. See example A.
 
 
-If we must, we can also make in-world games that trigger assertions using something like this: 
+If we must, we can also make in-world things that trigger assertions using something like this: 
 
     The button is a thing in the football field. 
-    
+
     instead of pushing the button: 
 	    try checkpoint-asserting "baller". 
-
 
 
 Example: * Bring your own ball - Using checkpoints assertion in a test script.
@@ -124,11 +123,13 @@ Example: ** How to Fix an Airlock - Using both checkpoint assertions and a check
 
 In this example we have a very silly puzzle indeed. We have a person in a spacesuit, and he or she needs to get inside an airlock. To get inside, the solution is just to identify the part that's acting up, and hit it. Then we can close the outer door, open the inner door, walk inside, and take off the space suit. 
 
-We can thing of this as a "checkpoint". While we're developing a game, this etensions let's us do two things: assert that the world state is as it should be, and provide a framework for writing rules that set the game state to some defined state. 
+We can think of this as a "checkpoint". While we're developing a game, this extension lets us do two things: assert that the world state is as it should be, and provide a framework for writing rules that set the game state to some defined state. 
 
 So in this case we make up a "checkpoint" and call it "airlock". Typing in "checkpoint assert airlock" (or just "cpa airlock" for short will run the assertions in the Table of Checkpoints). If everything is as it should be (the spring is fixed, the door is closed, the player is inside, and the space suit is removed) everything checks out and we get a friendly "Assertions OK" message. If any of these things are wrong, the command will tell us. This is a contrived example, but in a larger game keeping track of the state of affairs is perhaps not so obvious. 
 
 The other thing is that maybe we just want to fast-forward to a good "checkpoint" and continue the game from there. Here we create a rule for this, just out of the blue, just declare it: "this is the checkpoint airlock rule". Remember to put that into the Table of Checkpoint scripts, and then you can just type in "checkpoint go airlock" (or "cpg airlock" for short) to execute the fast-forward script. Sure you can do this with regular "test" scripts, but then you can only enter a list of player commands, in a rule like this you can do anything you can do from Inform code. 
+
+If you run this example you can run "test failing" to see what happens when there are assertion failures, and "test solution" to see what happens when everything checks out.
 
 
 
@@ -197,11 +198,11 @@ The other thing is that maybe we just want to fast-forward to a good "checkpoint
 	"airlock"	"[if the player is wearing the space suit]fail[end if]"	"You should have taken off the space suit"
 	"airlock"	"[unless the spring is fixed]fail[end if]"	"You need to fix the spring"
 	
-	test airlock with "open outer / in / close outer / in / take off space suit / checkpoint assert airlock".
+	test failing with "in / close outer / open inner / in / close inner / remove suit / cpa airlock".
 	
-	test solution with "hit spring / close outer / open inner / in / close inner / remove suit".
+	test solution with "in / hit spring / close outer / open inner / in / close inner / remove suit / cpa airlock".
 
-	test me with "test airlock".
+	test me with "test failing".
 	
 	Table of Checkpoint scripts (continued)
 	topic	name	rule
