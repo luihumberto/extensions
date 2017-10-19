@@ -1,4 +1,4 @@
-Version 2/150201 of Flexible Logger by Peter Orme begins here.
+Version 3/171019 of Flexible Logger by Peter Orme begins here.
 
 "A logging tool for I7 that lets you log to transcript and/or file (for Glulx)"
 
@@ -48,8 +48,39 @@ To log (msg - indexed text) at (chosen level - a severity):
 Section 4 - Fallback Logging (for Z-machine only) 
 [With Z-machine, all the logging is just console logging]
 
-To log (msg - indexed text) at  (chosen level - a severity):
+To log (msg - indexed text) at (chosen level - a severity):
 	console log msg at chosen level.
+	
+Section 5 - Getting information about the logging at runtime - not for release
+
+dev log inspecting is an action out of world applying to nothing.
+
+understand "dev log info" as dev log inspecting;
+
+carry out dev log inspecting (this is the standard dev log inspecting rule):
+	say "Console log level: [console log level]." (A);
+	
+Section 6 - Setting the console log level at runtime - not for release 
+
+dev log level setting is an action applying to one severity.
+
+understand "dev log set [any severity]" as dev log level setting.
+
+carry out dev log level setting (this is the standard dev log level setting rule):
+	say "Changing the console log level to [the severity understood]." (A);
+	now the console log level is the severity understood.
+	
+Section 7 - Printing the help text - not for release 
+
+dev log helping is an action out of world applying to nothing.
+
+understand "dev log help" as dev log helping.
+
+carry out dev log helping (this is the standard dev log helping rule):
+	say "[bold type]dev log help[roman type] - prints this help text.";
+	say "[bold type]dev log info[roman type] - prints some information about the logger.";
+	say "[bold type]dev log set [italic type]severity[roman type] - sets the console log level to a given severity.";
+	say "The lower the severity, the more logging you will get (assuming, of course, that the story or extensions you are using performs any logging in the first place). The severities are as follows: [the list of severities].";
 
 Flexible Logger ends here.
 
@@ -59,6 +90,8 @@ This extension lets you log messages from any point in your Inform7 code by just
 
 The message will then appear in the transcript as 
 "(debug level turn 14) Whatever message"
+
+Chapter: log levels 
 
 For some more control, you can use predefined log levels. These use the severity kind defined in the extension Developer Framework. You can use those to log something at a specified severity:
 
@@ -88,6 +121,8 @@ These work as expected: setting the log level to off level turns all logging off
 
 There's a reason the log level is called "console log level": there are two logs, one to console, and one to file. This only works for Glulx, if you are using z-machine you only get console logging. 
 
+Chapter: Logging to file
+
 The filename used for logging is by default informlog.glkdata, in the folder where glulx decides to put it, probably where the main file is. You can change it like this:
 
 	The File of Custom Logging is "myCustomLog";
@@ -98,9 +133,24 @@ The filename used for logging is by default informlog.glkdata, in the folder whe
 Of course you can just switch file logging off:
 
 	now file log level is off level;
-	
 
 A corresponding file (informlog.glkdata) will be saved to file. 
+
+Chapter: Runtime commands
+
+In version 3 of this extension, we also added some commands that you can while testing the game. The are all marked as "not for release".
+
+The player command "dev log info" will show information about the logging. 
+
+The player command "dev log set debug level" (etc) will change the console log level to the given severity. 
+
+Note that you need to type in "level" at  the end. The severities are defined in the Developer Framework extension, and they are "every level", "debug level", "info level", "warning level", "error level", and "off level".  
+
+There is also a "dev log help" command which will print some instructions about how this works. 
+
+Chapter: Version History
+
+Version 3: Adding the runtime commands "dev log info" and "dev log set [any severity]".
 
 Example: * Hello log - A minimal example. Just include and "debug", "warn" etc.
 
