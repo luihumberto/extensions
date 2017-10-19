@@ -62,7 +62,7 @@ carry out dev log inspecting (this is the standard dev log inspecting rule):
 	
 Section 6 - Setting the console log level at runtime - not for release 
 
-dev log level setting is an action applying to one severity.
+dev log level setting is an action out of world applying to one severity.
 
 understand "dev log set [any severity]" as dev log level setting.
 
