@@ -218,12 +218,27 @@ Last carry out an actor switching off a tap (this is the remove water supply rul
 	now the location is not water-supplying;
 	update backdrop positions.
 	
+Section 1I - Sink dumping fluids (for use without Metric Units by Graham Nelson)
+	
 Instead of an actor pouring a fluid container into something which incorporates a drain (this is the sink-dumping fluids rule):
 	if the noun is empty:
 		if the player is the actor:
 			say "[The noun] [are] already empty." (A) instead;
 		stop the action;
 	now the fluid content of the noun is 0.0 fl oz;
+	if the player is the actor:
+		say "[We] [dump] out [the noun] into [the second noun].";
+	otherwise if the player can see the actor:
+		say "[The actor] [dump] out [the noun] into [the second noun]."
+
+Section 1M - Sink dumping fluids (for use with Metric Units by Graham Nelson)
+		
+Instead of an actor pouring a fluid container into something which incorporates a drain (this is the sink-dumping fluids rule):
+	if the noun is empty:
+		if the player is the actor:
+			say "[The noun] [are] already empty." (A) instead;
+		stop the action;
+	now the fluid content of the noun is 0 mL;
 	if the player is the actor:
 		say "[We] [dump] out [the noun] into [the second noun].";
 	otherwise if the player can see the actor:
